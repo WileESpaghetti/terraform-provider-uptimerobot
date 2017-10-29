@@ -6,7 +6,10 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 )
 
+var testAccProvider *schema.Provider
+
 func init() {
+	testAccProvider = Provider().(*schema.Provider)
 }
 
 
@@ -21,4 +24,8 @@ func TestProvider_impl(t *testing.T) {
 }
 
 func testAccPreCheck(t *testing.T) {
+	err := testAccProvider.Configure(terraform.NewResourceConfig(nil))
+	if err != nil {
+		t.Fatal(err)
+	}
 }
