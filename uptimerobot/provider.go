@@ -1,9 +1,10 @@
 package uptimerobot
 
 import (
-    "github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/terraform"
 )
 
-func Provider() *schema.Provider {
-    return nil
+func Provider() terraform.ResourceProvider {
+	return &schema.Provider{}
 }
