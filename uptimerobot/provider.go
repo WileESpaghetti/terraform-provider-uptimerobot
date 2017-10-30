@@ -7,6 +7,7 @@ import (
 
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
+		ConfigureFunc: providerConfigure,
 		Schema: map[string]*schema.Schema{
 			"api_key": {
 				Type:        schema.TypeString,
@@ -18,4 +19,12 @@ func Provider() terraform.ResourceProvider {
 			"uptimerobot_monitor": resourceMonitor(),
 		},
 	}
+}
+
+func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+	config := Config{
+		ApiKey: d.Get("api_key").(string),
+	}
+
+	return nil
 }
