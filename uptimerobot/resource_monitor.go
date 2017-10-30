@@ -11,7 +11,20 @@ func resourceMonitor() *schema.Resource {
 		Update: resourceMonitorUpdate,
 		Delete: resourceMonitorDelete,
 
-		Schema: map[string]*schema.Schema{},
+		Schema: map[string]*schema.Schema{
+			"friendly_name": {
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"url": {
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"type": {
+				Type:     schema.TypeInt,
+				Required: true,
+			},
+		},
 	}
 }
 
