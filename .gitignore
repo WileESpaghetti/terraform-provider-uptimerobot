@@ -1,3 +1,8 @@
+# Terraform
+terraform-provider-uptimerobot
+.terraform
+*.tf
+
 # Binaries for programs and plugins
 *.exe
 *.dll
