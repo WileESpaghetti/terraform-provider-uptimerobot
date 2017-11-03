@@ -26,5 +26,10 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 		ApiKey: d.Get("api_key").(string),
 	}
 
-	return nil
+	client, err := config.Client()
+	if err != nil {
+		return nil, err
+	}
+
+	return client, nil
 }
