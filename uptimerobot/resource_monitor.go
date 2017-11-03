@@ -1,6 +1,7 @@
 package uptimerobot
 
 import (
+	"github.com/WileESpaghetti/go-uptimemonitor-v2/v2"
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
@@ -28,8 +29,23 @@ func resourceMonitor() *schema.Resource {
 	}
 }
 
-func resourceMonitorCreate(d *schema.ResourceData, m interface{}) error {
-	return nil
+func resourceMonitorCreate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(uptimerobot.Client)
+	monitor := uptimerobot.Monitor{
+		FriendlyName: d.Get("friendly_name").(string),
+		Url: d.Get("url").(string),
+		Type: 1,
+	}
+
+	_, err := client.NewMonitor(&monitor)
+	if err != nil {
+		// TODO update state on already_exists errors
+		return err
+	}
+
+	d.SetId(monitor.Id.String())
+
+	return resourceMonitorCreate(d, meta)
 }
 
 func resourceMonitorRead(d *schema.ResourceData, m interface{}) error {
