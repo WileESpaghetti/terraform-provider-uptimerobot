@@ -45,7 +45,7 @@ func resourceMonitorCreate(d *schema.ResourceData, meta interface{}) error {
 
 	d.SetId(monitor.Id.String())
 
-	return resourceMonitorCreate(d, meta)
+	return resourceMonitorRead(d, meta)
 }
 
 func resourceMonitorRead(d *schema.ResourceData, m interface{}) error {
