@@ -1,6 +1,7 @@
 package uptimerobot
 
 import (
+	"encoding/json"
 	"github.com/WileESpaghetti/go-uptimemonitor-v2/v2"
 	"github.com/hashicorp/terraform/helper/schema"
 )
@@ -56,6 +57,21 @@ func resourceMonitorUpdate(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 
-func resourceMonitorDelete(d *schema.ResourceData, m interface{}) error {
+func resourceMonitorDelete(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(uptimerobot.Client)
+
+	jsonId := json.Number(d.Id())
+
+	monitor := uptimerobot.Monitor{
+		Id: jsonId,
+	}
+
+	err := client.DeleteMonitor(&monitor)
+	if err != nil {
+		return err
+	}
+
+	d.SetId("")
+
 	return nil
 }
